@@ -1,14 +1,14 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
+use diesel::mysql::MysqlConnection;
+use diesel::prelude::*;
+use dotenv::dotenv;
+use std::env;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+/// Establishes a connection to the mySql database url stored in the `DATEBASE_URL` environment
+/// variable
+pub fn establish_connection() -> MysqlConnection {
+    dotenv().ok();
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+    let database_url = env::var("DATEBASE_URL").expect("DATEBASE_URL must be set");
+    MysqlConnection::establish(&database_url)
+        .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }
