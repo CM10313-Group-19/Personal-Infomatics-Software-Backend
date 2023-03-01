@@ -1,8 +1,4 @@
-use chrono::NaiveDateTime;
-use rocket::serde::json::Json;
-use rocket_db_pools::Connection;
-use serde::{Deserialize, Serialize};
-use crate::Db;
+use crate::*;
 
 // Struct for recieving a new meal
 // Does not need meal_id item as id auto_incremented
@@ -27,7 +23,7 @@ pub struct Meal {
 pub async fn get_meals(mut db: Connection<Db>) -> Option<Json<Vec<Meal>>> {
     let result = 
         // Construct the SQL query, indicate the date returned should be in Meal structs
-        sqlx::query_as!(Meal, "SELECT * FROM meals")
+        sqlx::query_as!(Meal, "SELECT meal_id, meal_name, date_eaten, calories FROM meals")
         // execute the query
         .fetch_all(&mut *db)
         // fetch_all is async so wait to be complete
