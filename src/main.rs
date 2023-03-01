@@ -24,5 +24,5 @@ fn rocket() -> _ {
         // Attach the database connection
         .attach(Db::init())
         // Mount the routes
-        .mount("/", routes![get_meals, new_meal, signup, check_email, login])
+        .mount("/", routes![get_meals, new_meal, signup, check_email, loginLoginResponse])
 }

@@ -8,9 +8,14 @@ pub struct CheckEmailResponse {
     exists: bool,
 }
 
-#[get("/check_email/<email>")]
-pub async fn check_email(email: String, mut db: Connection<Db>) -> Json<CheckEmailResponse> {
-    let result = sqlx::query!("SELECT user_id FROM users where email = ?", email)
+#[derive(Serialize, Deserialize)]
+pub struct CheckEmailJson {
+    email: String
+}
+
+#[get("/check_email", data = "<email>")]
+pub async fn check_email(email: Json<CheckEmailJson>, mut db: Connection<Db>) -> Json<CheckEmailResponse> {
+    let result = sqlx::query!("SELECT user_id FROM users where email = ?", email.email)
         .fetch_all(&mut *db)
         .await
         .ok();
