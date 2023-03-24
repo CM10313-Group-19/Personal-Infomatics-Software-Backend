@@ -2,7 +2,6 @@ use chrono::NaiveDate;
 
 use crate::*;
 
-
 #[derive(Serialize, Deserialize)]
 pub struct CheckEmailResponse {
     exists: bool,
@@ -10,11 +9,14 @@ pub struct CheckEmailResponse {
 
 #[derive(Serialize, Deserialize)]
 pub struct CheckEmailJson {
-    email: String
+    email: String,
 }
 
 #[get("/check_email", data = "<email>")]
-pub async fn check_email(email: Json<CheckEmailJson>, mut db: Connection<Db>) -> Json<CheckEmailResponse> {
+pub async fn check_email(
+    email: Json<CheckEmailJson>,
+    mut db: Connection<Db>,
+) -> Json<CheckEmailResponse> {
     let result = sqlx::query!("SELECT user_id FROM users where email = ?", email.email)
         .fetch_all(&mut *db)
         .await
@@ -93,7 +95,13 @@ pub async fn login(login_data: Json<UserLogin>, mut db: Connection<Db>) -> Json<
     .ok();
 
     Json(match result {
-        None => LoginResponse {success: false, user_id: -1},
-        Some(id) => LoginResponse{success: true, user_id: id.user_id}
+        None => LoginResponse {
+            success: false,
+            user_id: -1,
+        },
+        Some(id) => LoginResponse {
+            success: true,
+            user_id: id.user_id,
+        },
     })
 }

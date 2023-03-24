@@ -8,6 +8,7 @@ pub use serde::{Deserialize, Serialize};
 
 mod meal;
 mod users;
+mod weight;
 
 use crate::meal::{get_meals, new_meal};
 use crate::users::{signup, check_email, login};
@@ -24,5 +25,5 @@ fn rocket() -> _ {
         // Attach the database connection
         .attach(Db::init())
         // Mount the routes
-        .mount("/", routes![get_meals, new_meal, signup, check_email, loginLoginResponse])
+        .mount("/", routes![get_meals, new_meal, signup, check_email, login])
 }
