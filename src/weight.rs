@@ -1,50 +1,46 @@
 use crate::*;
 use chrono::NaiveDate;
+use rocket::form::Form;
 
 // Structs for sending and retriving weight data
 
 #[derive(Serialize, Deserialize)]
-struct WeightId {
-    id: i32,
-}
-
-#[derive(Serialize, Deserialize)]
-struct Weight {
+pub struct Weight {
     weight_id: i32,
     day_measured: NaiveDate,
     value: i32,
 }
 
-#[derive(Serialize, Deserialize)]
-struct NewWeight {
+#[derive(FromForm)]
+pub struct NewWeight {
     user_id: i32,
     weight_id: i32,
-    day_measured: NaiveDate,
+    day_measured: String,
     value: i32,
 }
 
-#[get("/weight", data = "<id>")]
-async fn get_weight(id: Json<WeightId>, mut db: Connection<Db>) -> Json<Option<Weight>> {
+#[get("/weight?<id>")]
+pub async fn get_weight(id: i32, mut db: Connection<Db>) -> Json<Option<Weight>> {
     let result = sqlx::query_as!(
         Weight,
         "SELECT weight_id, day_measured, value FROM weights WHERE user_id = ? ORDER BY day_measured",
-        id.id
+        id
     ).fetch_one(&mut *db).await.ok();
     Json(result)
 }
 
-#[get("/weights", data = "<id>")]
-async fn get_weights(id: Json<WeightId>, mut db: Connection<Db>) -> Json<Option<Vec<Weight>>> {
+#[get("/weights?<id>")]
+pub async fn get_weights(id: i32, mut db: Connection<Db>) -> Json<Option<Vec<Weight>>> {
     let result = sqlx::query_as!(
         Weight,
         "SELECT weight_id, day_measured, value FROM weights WHERE user_id = ? ORDER BY day_measured",
-        id.id
+        id
     ).fetch_all(&mut *db).await.ok();
     Json(result)
 }
 
 #[post("/weight", data = "<new_weight>")]
-async fn new_weight(new_weight: Json<NewWeight>, mut db: Connection<Db>) {
+pub async fn new_weight(new_weight: Form<NewWeight>, mut db: Connection<Db>) {
     sqlx::query!(
         "INSERT INTO weights (user_id, weight_id, day_measured, value)
         VALUES (?, ?, ?, ?)",

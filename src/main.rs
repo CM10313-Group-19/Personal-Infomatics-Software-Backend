@@ -12,6 +12,7 @@ mod weight;
 
 use crate::meal::{get_meals, new_meal};
 use crate::users::{check_email, login, signup};
+use crate::weight::{get_weight, get_weights, new_weight};
 
 // Define the databse
 #[derive(Database)]
@@ -27,6 +28,15 @@ fn rocket() -> _ {
         // Mount the routes
         .mount(
             "/",
-            routes![get_meals, new_meal, signup, check_email, login],
+            routes![
+                get_weight,
+                get_weights,
+                new_weight,
+                get_meals,
+                new_meal,
+                signup,
+                check_email,
+                login
+            ],
         )
 }
