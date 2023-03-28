@@ -11,7 +11,7 @@ mod users;
 mod weight;
 
 use crate::meal::{get_meals, new_meal};
-use crate::users::{signup, check_email, login};
+use crate::users::{check_email, login, signup};
 
 // Define the databse
 #[derive(Database)]
@@ -25,5 +25,8 @@ fn rocket() -> _ {
         // Attach the database connection
         .attach(Db::init())
         // Mount the routes
-        .mount("/", routes![get_meals, new_meal, signup, check_email, login])
+        .mount(
+            "/",
+            routes![get_meals, new_meal, signup, check_email, login],
+        )
 }

@@ -39,3 +39,10 @@ CREATE TABLE IF NOT EXISTS sleep (
     PRIMARY KEY(sleep_id),
     FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
+CREATE TABLE IF NOT EXISTS five_a_day (
+    user_id int NOT NULL,
+    day date NOT NULL,
+    value int NOT NULL,
+    PRIMARY KEY(user_id, day),
+    FOREIGN KEY(user_id) REFERENCES users(user_id)
+);
