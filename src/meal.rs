@@ -53,9 +53,9 @@ pub async fn new_meal(meal_data: Form<NewMeal>, mut db: Connection<Db>) {
     // execute the query
     .execute(&mut *db)
     // fetch_all is async so wait to be complete
-    .await
+    .await;
     // Convert result into option
-    ;
+    
     println!("{:?}", result);
 
     // TODO: return status of the insert

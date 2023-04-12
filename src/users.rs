@@ -79,12 +79,6 @@ pub async fn signup(new_user: Form<NewUser>, mut db: Connection<Db>) -> Json<Sig
 }
 
 #[derive(Serialize, Deserialize)]
-pub struct UserLogin {
-    email: String,
-    password: String,
-}
-
-#[derive(Serialize, Deserialize)]
 pub struct LoginResponse {
     success: bool,
     user_id: i32,

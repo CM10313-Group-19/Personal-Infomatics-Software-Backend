@@ -2,7 +2,7 @@ use crate::*;
 use chrono::NaiveDate;
 use rocket::form::Form;
 
-// Structs for sending and retriving weight data
+// Structs for sending and retrieving weight data
 
 #[derive(Serialize, Deserialize)]
 pub struct Weight {
@@ -19,6 +19,7 @@ pub struct NewWeight {
     value: i32,
 }
 
+/// Get the last recorded weight for a user
 #[get("/weight?<id>")]
 pub async fn get_weight(id: i32, mut db: Connection<Db>) -> Json<Option<Weight>> {
     let result = sqlx::query_as!(
@@ -29,6 +30,7 @@ pub async fn get_weight(id: i32, mut db: Connection<Db>) -> Json<Option<Weight>>
     Json(result)
 }
 
+/// Get the all weights for a user
 #[get("/weights?<id>")]
 pub async fn get_weights(id: i32, mut db: Connection<Db>) -> Json<Option<Vec<Weight>>> {
     let result = sqlx::query_as!(
@@ -39,6 +41,7 @@ pub async fn get_weights(id: i32, mut db: Connection<Db>) -> Json<Option<Vec<Wei
     Json(result)
 }
 
+/// Store a new weight for a user
 #[post("/weight", data = "<new_weight>")]
 pub async fn new_weight(new_weight: Form<NewWeight>, mut db: Connection<Db>) {
     sqlx::query!(

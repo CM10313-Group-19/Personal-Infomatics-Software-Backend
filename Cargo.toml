@@ -9,5 +9,5 @@ edition = "2021"
 rocket = { version = "0.5.0-rc", features = ["json"] }
 serde = { version = "1.0.152", features = ["derive"] }
 rocket_db_pools = { version = "0.1.0-rc.2", features = ["sqlx_mysql"] }
-sqlx = { version = "0.5.13", features = ["macros", "chrono"] }
+sqlx = { version = "0.6", features = ["macros", "chrono", "mysql"] }
 chrono = {version = "*", features = ["serde"]}

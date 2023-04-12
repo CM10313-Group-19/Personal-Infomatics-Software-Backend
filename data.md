@@ -19,7 +19,7 @@
 - day (1-5)
 - value
 
-## Users
+## Users
 - email
 - password
 
