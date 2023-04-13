@@ -14,7 +14,6 @@ pub struct Weight {
 #[derive(FromForm)]
 pub struct NewWeight {
     user_id: i32,
-    weight_id: i32,
     day_measured: String,
     value: i32,
 }
@@ -24,7 +23,7 @@ pub struct NewWeight {
 pub async fn get_weight(id: i32, mut db: Connection<Db>) -> Json<Option<Weight>> {
     let result = sqlx::query_as!(
         Weight,
-        "SELECT weight_id, day_measured, value FROM weights WHERE user_id = ? ORDER BY day_measured",
+        "SELECT weight_id, day_measured, value FROM weights WHERE user_id = ? ORDER BY day_measured DESC",
         id
     ).fetch_one(&mut *db).await.ok();
     Json(result)
@@ -45,10 +44,9 @@ pub async fn get_weights(id: i32, mut db: Connection<Db>) -> Json<Option<Vec<Wei
 #[post("/weight", data = "<new_weight>")]
 pub async fn new_weight(new_weight: Form<NewWeight>, mut db: Connection<Db>) {
     sqlx::query!(
-        "INSERT INTO weights (user_id, weight_id, day_measured, value)
-        VALUES (?, ?, ?, ?)",
+        "INSERT INTO weights (user_id, day_measured, value)
+        VALUES (?, ?, ?)",
         new_weight.user_id,
-        new_weight.weight_id,
         new_weight.day_measured,
         new_weight.value
     )
