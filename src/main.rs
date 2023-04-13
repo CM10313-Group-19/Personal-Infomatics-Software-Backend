@@ -9,10 +9,12 @@ pub use serde::{Deserialize, Serialize};
 mod meal;
 mod users;
 mod weight;
+mod sleep;
 
 use crate::meal::{get_meals, new_meal};
 use crate::users::{check_email, login, signup};
 use crate::weight::{get_weight, get_weights, new_weight};
+use crate::sleep::{get_sleep, new_sleep};
 
 // Define the databse
 #[derive(Database)]
@@ -29,6 +31,8 @@ fn rocket() -> _ {
         .mount(
             "/",
             routes![
+                get_sleep,
+                new_sleep,
                 get_weight,
                 get_weights,
                 new_weight,

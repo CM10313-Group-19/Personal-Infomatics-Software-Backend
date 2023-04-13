@@ -10,7 +10,7 @@
 - Wake Time
 - Date
 
-## Meals
+## Meals ✅
 - Meal Name
 - Calories
 - When Eaten 
@@ -19,11 +19,11 @@
 - day (1-5)
 - value
 
-## Users
+## Users ✅
 - email
 - password
 
-## Weights
+## Weights ✅ 
 - day_measured
 - value
 
