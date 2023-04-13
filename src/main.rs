@@ -10,7 +10,9 @@ mod meal;
 mod users;
 mod weight;
 mod sleep;
+mod exercise;
 
+use crate::exercise::{get_exercise, new_exercise};
 use crate::meal::{get_meals, new_meal};
 use crate::users::{check_email, login, signup};
 use crate::weight::{get_weight, get_weights, new_weight};
@@ -31,6 +33,8 @@ fn rocket() -> _ {
         .mount(
             "/",
             routes![
+                get_exercise,
+                new_exercise,
                 get_sleep,
                 new_sleep,
                 get_weight,

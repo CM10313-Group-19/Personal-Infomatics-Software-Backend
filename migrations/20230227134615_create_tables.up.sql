@@ -26,7 +26,9 @@ CREATE TABLE IF NOT EXISTS exercise (
     exercise_id int NOT NULL AUTO_INCREMENT,
     user_id int NOT NULL,
     duration time NOT NULL,
-    type varchar(255) NOT NULL,
+    distance float NOT NULL,
+    exercise_date date NOT NULL,
+    exercise_type varchar(255) NOT NULL,
     PRIMARY KEY(exercise_id),
     FOREIGN KEY(user_id) REFERENCES users(user_id)
 );

@@ -5,7 +5,7 @@
 - Distance
 - Type
 
-## Sleep
+## Sleep ✅
 - Sleep Time
 - Wake Time
 - Date
