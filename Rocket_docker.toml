@@ -4,4 +4,4 @@ port = 8000
 log_level = "normal"
 
 [default.databases.test]
-url="mysql://root@host.docker.internal/test"
+url="mysql://root@host.docker.internal/informatics"

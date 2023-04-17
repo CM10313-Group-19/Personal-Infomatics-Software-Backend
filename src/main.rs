@@ -6,17 +6,17 @@ pub use rocket::serde::json::Json;
 pub use rocket_db_pools::{Connection, Database};
 pub use serde::{Deserialize, Serialize};
 
+mod exercise;
 mod meal;
+mod sleep;
 mod users;
 mod weight;
-mod sleep;
-mod exercise;
 
 use crate::exercise::{get_exercise, new_exercise};
 use crate::meal::{get_meals, new_meal};
+use crate::sleep::{get_sleep, new_sleep};
 use crate::users::{check_email, login, signup};
 use crate::weight::{get_weight, get_weights, new_weight};
-use crate::sleep::{get_sleep, new_sleep};
 
 // Define the databse
 #[derive(Database)]

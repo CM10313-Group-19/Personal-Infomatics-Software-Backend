@@ -42,9 +42,18 @@ CREATE TABLE IF NOT EXISTS sleep (
     FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 CREATE TABLE IF NOT EXISTS five_a_day (
-    user_id int NOT NULL,
+    user_id int NOT NULL AUTO_INCREMENT,
     day date NOT NULL,
     value int NOT NULL,
     PRIMARY KEY(user_id, day),
     FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
+CREATE TABLE IF NOT EXISTS goals (
+    goal_id int NOT NULL AUTO_INCREMENT,
+    user_id int NOT NULL,
+    date_created date NOT NULL,
+    value varchar(255) NOT NULL,
+    completed bool NOT NULL,
+    PRIMARY KEY(goal_id),
+    FOREIGN KEY(user_id) REFERENCES users(user_id)
+)
